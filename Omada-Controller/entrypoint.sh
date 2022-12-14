@@ -84,7 +84,7 @@ else
 fi
 
 # check if properties file exists; create it if it is missing
-DEFAULT_FILES="/data/tplink/EAPController/properties.defaults/*"
+DEFAULT_FILES="/data/tplink/EAPController/properties.defaults"/*
 for FILE in ${DEFAULT_FILES}
 do
   BASENAME=$(basename "${FILE}")
