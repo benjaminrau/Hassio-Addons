@@ -83,19 +83,6 @@ else
   fi
 fi
 
-# check if properties file exists; create it if it is missing
-DEFAULT_FILES="/data/tplink/EAPController/properties.defaults"/*
-for FILE in ${DEFAULT_FILES}
-do
-  BASENAME=$(basename "${FILE}")
-  if [ ! -f "/data/tplink/EAPController/properties/${BASENAME}" ]
-  then
-    echo "INFO: Properties file '${BASENAME}' missing, restoring default file..."
-    cp "${FILE}" "/data/tplink/EAPController/properties/${BASENAME}"
-    chown omada:omada "/data/tplink/EAPController/properties/${BASENAME}"
-  fi
-done
-
 # set default time zone and notify user of time zone
 echo "INFO: Time zone set to '${TZ}'"
 
