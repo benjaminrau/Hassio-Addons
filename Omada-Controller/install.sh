@@ -188,8 +188,8 @@ chmod 755 "${OMADA_DIR}"/bin/*
 # starting with 5.0.x, the work directory is no longer needed
 case "${OMADA_MAJOR_VER}" in
   5)
-    # create logs directory
-    mkdir "${OMADA_DIR}/logs"
+    # create logs directory, which in some cases may already exist on image
+    mkdir "${OMADA_DIR}/logs" -vp
     ;;
   *)
     # create logs and work directories
