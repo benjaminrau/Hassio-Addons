@@ -2,7 +2,7 @@
 
 set -e
 
-OMADA_DIR="/data/omada_controller"
+OMADA_DIR="/opt/tplink/EAPController"
 ARCH="${ARCH:-}"
 OMADA_URL="${OMADA_URL:-}"
 OMADA_TAR="$(echo "${OMADA_URL}" | awk -F '/' '{print $NF}')"
@@ -35,6 +35,7 @@ echo "ARCH=${ARCH}"
 echo "OMADA_VER=${OMADA_VER}"
 echo "OMADA_TAR=${OMADA_TAR}"
 echo "OMADA_URL=${OMADA_URL}"
+echo "OMADA_DIR=${OMADA_DIR}"
 
 echo "**** Install Dependencies ****"
 export DEBIAN_FRONTEND=noninteractive
@@ -50,7 +51,9 @@ mkdir "Omada_SDN_Controller_${OMADA_VER}"
 cd "Omada_SDN_Controller_${OMADA_VER}"
 tar zxvf "../${OMADA_TAR}"
 rm -f "../${OMADA_TAR}"
+
 mkdir "${OMADA_DIR}" -vp
+
 cp bin "${OMADA_DIR}" -r
 cp data "${OMADA_DIR}" -r
 cp properties "${OMADA_DIR}" -r
@@ -59,13 +62,15 @@ cp keystore "${OMADA_DIR}" -r
 cp lib "${OMADA_DIR}" -r
 cp install.sh "${OMADA_DIR}" -r
 cp uninstall.sh "${OMADA_DIR}" -r
+
 ln -sf "$(which mongod)" "${OMADA_DIR}/bin/mongod"
 chmod 755 "${OMADA_DIR}"/bin/*
 
 echo "**** Setup omada User Account ****"
 groupadd -g 508 omada
 useradd -u 508 -g 508 -d "${OMADA_DIR}" omada
-mkdir "${OMADA_DIR}/logs" "${OMADA_DIR}/work"
+
+mkdir "${OMADA_DIR}/logs" "${OMADA_DIR}/work" -vp
 chown -R omada:omada "${OMADA_DIR}/data" "${OMADA_DIR}/logs" "${OMADA_DIR}/work"
 
 echo "**** Cleanup ****"

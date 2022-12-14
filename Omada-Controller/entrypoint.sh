@@ -68,11 +68,11 @@ then
 fi
 
 # check to see if there is a db directory; create it if it is missing
-if [ ! -d "/data/omada_controller" ]
+if [ ! -d "/opt/tplink/EAPController" ]
 then
-  echo "INFO: Omanda Controller directory missing; creating '/data/omada_controller'"
-  mkdir /data/omada_controller
-  chown 508:508 /data/omada_controller
+  echo "INFO: Omanda Controller directory missing; creating '/opt/tplink/EAPController'"
+  mkdir /opt/tplink/EAPController
+  chown 508:508 /opt/tplink/EAPController
   echo "done"
 fi
 
@@ -92,13 +92,13 @@ do
 done
 
 # check to see if there is a data & db directory; create it if it is missing
-if [ ! -d "/data/omada_controller/data" ]
+if [ ! -d "/opt/tplink/EAPController/data" ]
 then
-  echo "INFO: Database directory missing; creating '/data/omada_controller/data'"
-  mkdir /data/omada_controller/data
-  mkdir /data/omada_controller/data/db
-  chown 508:508 /data/omada_controller/data
-  chown 508:508 /data/omada_controller/data/db
+  echo "INFO: Database directory missing; creating '/opt/tplink/EAPController/data'"
+  mkdir /opt/tplink/EAPController/data
+  mkdir /opt/tplink/EAPController/data/db
+  chown 508:508 /opt/tplink/EAPController/data
+  chown 508:508 /opt/tplink/EAPController/data/db
   echo "done"
 fi
 
@@ -126,9 +126,9 @@ then
 fi
 
 # see if any of these files exist; if so, do not start as they are from older versions
-if [ -f /data/omada_controller/data/db/tpeap.0 ] || [ -f /data/omada_controller/data/db/tpeap.1 ] || [ -f /data/omada_controller/data/db/tpeap.ns ]
+if [ -f /opt/tplink/EAPController/data/db/tpeap.0 ] || [ -f /opt/tplink/EAPController/data/db/tpeap.1 ] || [ -f /opt/tplink/EAPController/data/db/tpeap.ns ]
 then
-  echo "ERROR: the data volume mounted to /data/omada_controller/data appears to have data from a previous version!"
+  echo "ERROR: the data volume mounted to /opt/tplink/EAPController/data appears to have data from a previous version!"
   echo "  Follow the upgrade instructions at https://github.com/mbentley/docker-omada-controller#upgrading-to-41"
   exit 1
 fi
