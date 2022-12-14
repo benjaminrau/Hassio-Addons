@@ -1,4 +1,4 @@
-ARG BASE=mbentley/omada-controller:4.4
+ARG BASE=mbentley/omada-controller:5.5
 FROM ${BASE}
 
 
