@@ -7,7 +7,7 @@ COPY entrypoint.sh install.sh healthcheck.sh log4j_patch.sh /
 RUN chmod +x /*.sh
 
 ARG ARCH=armv7l
-ARG INSTALL_VER="5.7"
+ARG INSTALL_VER="5.5"
 
 RUN /install.sh && \
     /log4j_patch.sh &&\
