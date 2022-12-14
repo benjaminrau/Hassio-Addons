@@ -6,6 +6,9 @@ COPY install.sh healthcheck.sh entrypoint.sh /
 
 RUN chmod +x /*.sh
 
+ARG ARCH=armv7l
+ARG OMADA_URL="https://static.tp-link.com/upload/software/2021/202112/20211217/Omada_SDN_Controller_v4.4.8_linux_x64.tar.gz"
+
 RUN /install.sh
 
 # Copy configuration properties

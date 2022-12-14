@@ -4,9 +4,9 @@ set -e
 
 OMADA_DIR="/data/omada_controller"
 ARCH="${ARCH:-}"
-OMADA_VER="${OMADA_VER:-}"
-OMADA_TAR="${OMADA_TAR:-}"
 OMADA_URL="${OMADA_URL:-}"
+OMADA_TAR="$(echo "${OMADA_URL}" | awk -F '/' '{print $NF}')"
+OMADA_VER="$(echo "${OMADA_TAR}" | awk -F '_v' '{print $2}' | awk -F '_' '{print $1}')"
 
 die() { echo -e "$@" 2>&1; exit 1; }
 
@@ -46,9 +46,10 @@ cd /tmp
 wget -nv "${OMADA_URL}"
 
 echo "**** Extract and Install Omada Controller ****"
-tar zxvf "${OMADA_TAR}"
-rm -f "${OMADA_TAR}"
-cd Omada_SDN_Controller_*
+mkdir "Omada_SDN_Controller_${OMADA_VER}"
+cd "Omada_SDN_Controller_${OMADA_VER}"
+tar zxvf "../${OMADA_TAR}"
+rm -f "../${OMADA_TAR}"
 mkdir "${OMADA_DIR}" -vp
 cp bin "${OMADA_DIR}" -r
 cp data "${OMADA_DIR}" -r
