@@ -6,6 +6,8 @@ COPY install.sh healthcheck.sh entrypoint.sh /
 
 RUN chmod +x /*.sh
 
+RUN /install.sh
+
 # Copy configuration properties
 COPY omada.properties log4j2.properties /opt/tplink/EAPController/properties/
 
