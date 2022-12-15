@@ -184,7 +184,7 @@ fi
 if [ ! -d "${DB_DIR}" ]
 then
   echo "INFO: Database directory missing; creating '${DB_DIR}'"
-  mkdir "${DB_DIR}"
+  mkdir "${DB_DIR}" -p
   chown omada:omada "${DB_DIR}"
   echo "done"
 fi
