@@ -153,9 +153,6 @@ esac
 # make sure tha the install directory exists
 mkdir "${OMADA_DIR}" -vp
 
-# copy files which already exist on image to OMADA_DIR
-cp -r /opt/tplink/EAPController/* "${OMADA_DIR}"
-
 # starting with 5.0.x, the installation has no webapps directory; these values are pulled from the install.sh
 case "${OMADA_MAJOR_VER}" in
   5)
