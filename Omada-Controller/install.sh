@@ -5,7 +5,8 @@ set -e
 # omada controller dependency and package installer script for versions 4.x and 5.x
 
 # set default variables
-OMADA_DIR="/data/tplink/EAPController"
+OMADA_DIR="/opt/tplink/EAPController"
+DB_DIR="/data/omada_controller/data/db"
 ARCH="${ARCH:-}"
 INSTALL_VER="${INSTALL_VER:-}"
 
@@ -153,6 +154,9 @@ esac
 # make sure tha the install directory exists
 mkdir "${OMADA_DIR}" -vp
 
+# make sure the directory exists where we store db files on hassio
+mkdir "${DB_DIR}" -vp
+
 # starting with 5.0.x, the installation has no webapps directory; these values are pulled from the install.sh
 case "${OMADA_MAJOR_VER}" in
   5)
@@ -178,6 +182,9 @@ do
   cp "${NAME}" "${OMADA_DIR}" -r
 done
 
+# copy omada default properties for can be used when properties is mounted as volume
+cp -r properties/* "${OMADA_DIR}/properties.defaults"
+
 # symlink for mongod
 ln -sf "$(command -v mongod)" "${OMADA_DIR}/bin/mongod"
 chmod 755 "${OMADA_DIR}"/bin/*
@@ -194,11 +201,11 @@ case "${OMADA_MAJOR_VER}" in
     ;;
 esac
 
-# for v5.1 & above, create backup of data/html directory in case it is missing (to be extracted at runtime)
-if [ -d /data/tplink/EAPController/data/html ]
+# for v5.1 & above, create backup of data/html directory (to be extracted at runtime, in case it is missing at later time)
+if [ -d "${OMADA_DIR}/data/html" ]
 then
   # create backup
-  cd /data/tplink/EAPController/data
+  cd "${OMADA_DIR}/data"
   tar zcvf ../data-html.tar.gz html
 fi
 
